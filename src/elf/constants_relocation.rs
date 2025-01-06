@@ -907,19 +907,30 @@ pub const R_RISCV_SET32: u32 = 56;
 
 /////////////////////
 // PowerPC
-// See: https://www.nxp.com/docs/en/reference-manual/E500ABIUG.pdf
+// See: https://doc.servo.org/src/object/elf.rs.html#3367 and
+// https://www.nxp.com/docs/en/reference-manual/E500ABIUG.pdf
 /////////////////////
+// PowerPC values for `Rel*::r_type` defined by the ABIs.
 pub const R_PPC_NONE: u32 = 0;
+/// 32bit absolute address
 pub const R_PPC_ADDR32: u32 = 1;
+/// 26bit address, 2 bits ignored.
 pub const R_PPC_ADDR24: u32 = 2;
+/// 16bit absolute address
 pub const R_PPC_ADDR16: u32 = 3;
+/// lower 16bit of absolute address
 pub const R_PPC_ADDR16_LO: u32 = 4;
+/// high 16bit of absolute address
 pub const R_PPC_ADDR16_HI: u32 = 5;
+/// adjusted high 16bit
 pub const R_PPC_ADDR16_HA: u32 = 6;
+/// 16bit address, 2 bits ignored
 pub const R_PPC_ADDR14: u32 = 7;
 pub const R_PPC_ADDR14_BRTAKEN: u32 = 8;
 pub const R_PPC_ADDR14_BRNTAKEN: u32 = 9;
+/// PC relative 26 bit
 pub const R_PPC_REL24: u32 = 10;
+/// PC relative 16 bit
 pub const R_PPC_REL14: u32 = 11;
 pub const R_PPC_REL14_BRTAKEN: u32 = 12;
 pub const R_PPC_REL14_BRNTAKEN: u32 = 13;
@@ -947,14 +958,79 @@ pub const R_PPC_SECTOFF_LO: u32 = 34;
 pub const R_PPC_SECTOFF_HI: u32 = 35;
 pub const R_PPC_SECTOFF_HA: u32 = 36;
 pub const R_PPC_ADDR30: u32 = 37;
+
+// PowerPC values for `Rel*::r_type` defined for the TLS access ABI.
+/// none    (sym+add)@tls
+pub const R_PPC_TLS: u32 = 67;
+/// word32  (sym+add)@dtpmod
+pub const R_PPC_DTPMOD32: u32 = 68;
+/// half16* (sym+add)@tprel
+pub const R_PPC_TPREL16: u32 = 69;
+/// half16  (sym+add)@tprel@l
+pub const R_PPC_TPREL16_LO: u32 = 70;
+/// half16  (sym+add)@tprel@h
+pub const R_PPC_TPREL16_HI: u32 = 71;
+/// half16  (sym+add)@tprel@ha
+pub const R_PPC_TPREL16_HA: u32 = 72;
+/// word32  (sym+add)@tprel
+pub const R_PPC_TPREL32: u32 = 73;
+/// half16*(sym+add)@dtprel
+pub const R_PPC_DTPREL16: u32 = 74;
+/// half16  (sym+add)@dtprel@l
+pub const R_PPC_DTPREL16_LO: u32 = 75;
+/// half16  (sym+add)@dtprel@h
+pub const R_PPC_DTPREL16_HI: u32 = 76;
+/// half16  (sym+add)@dtprel@ha
+pub const R_PPC_DTPREL16_HA: u32 = 77;
+/// word32  (sym+add)@dtprel
+pub const R_PPC_DTPREL32: u32 = 78;
+/// half16* (sym+add)@got@tlsgd
+pub const R_PPC_GOT_TLSGD16: u32 = 79;
+/// half16  (sym+add)@got@tlsgd@l
+pub const R_PPC_GOT_TLSGD16_LO: u32 = 80;
+/// half16  (sym+add)@got@tlsgd@h
+pub const R_PPC_GOT_TLSGD16_HI: u32 = 81;
+/// half16  (sym+add)@got@tlsgd@ha
+pub const R_PPC_GOT_TLSGD16_HA: u32 = 82;
+/// half16* (sym+add)@got@tlsld
+pub const R_PPC_GOT_TLSLD16: u32 = 83;
+/// half16  (sym+add)@got@tlsld@l
+pub const R_PPC_GOT_TLSLD16_LO: u32 = 84;
+/// half16  (sym+add)@got@tlsld@h
+pub const R_PPC_GOT_TLSLD16_HI: u32 = 85;
+/// half16  (sym+add)@got@tlsld@ha
+pub const R_PPC_GOT_TLSLD16_HA: u32 = 86;
+/// half16* (sym+add)@got@tprel
+pub const R_PPC_GOT_TPREL16: u32 = 87;
+/// half16  (sym+add)@got@tprel@l
+pub const R_PPC_GOT_TPREL16_LO: u32 = 88;
+/// half16  (sym+add)@got@tprel@h
+pub const R_PPC_GOT_TPREL16_HI: u32 = 89;
+/// half16  (sym+add)@got@tprel@ha
+pub const R_PPC_GOT_TPREL16_HA: u32 = 90;
+/// half16* (sym+add)@got@dtprel
+pub const R_PPC_GOT_DTPREL16: u32 = 91;
+/// half16* (sym+add)@got@dtprel@l
+pub const R_PPC_GOT_DTPREL16_LO: u32 = 92;
+/// half16* (sym+add)@got@dtprel@h
+pub const R_PPC_GOT_DTPREL16_HI: u32 = 93;
+/// half16* (sym+add)@got@dtprel@ha
+pub const R_PPC_GOT_DTPREL16_HA: u32 = 94;
+/// none    (sym+add)@tlsgd
+pub const R_PPC_TLSGD: u32 = 95;
+/// none    (sym+add)@tlsld
+pub const R_PPC_TLSLD: u32 = 96;
+
+// PowerPC values for `Rel*::r_type` from the Embedded ELF ABI.
 pub const R_PPC_EMB_NADDR32: u32 = 101;
 pub const R_PPC_EMB_NADDR16: u32 = 102;
 pub const R_PPC_EMB_NADDR16_LO: u32 = 103;
 pub const R_PPC_EMB_NADDR16_HI: u32 = 104;
 pub const R_PPC_EMB_NADDR16_HA: u32 = 105;
-pub const R_PPC_EMB_SDA_I16: u32 = 106;
-pub const R_PPC_EMB_SDA2_I16: u32 = 107;
+pub const R_PPC_EMB_SDAI16: u32 = 106;
+pub const R_PPC_EMB_SDA2I16: u32 = 107;
 pub const R_PPC_EMB_SDA2REL: u32 = 108;
+/// 16 bit offset in SDA
 pub const R_PPC_EMB_SDA21: u32 = 109;
 pub const R_PPC_EMB_MRKREF: u32 = 110;
 pub const R_PPC_EMB_RELSEC16: u32 = 111;
@@ -962,15 +1038,25 @@ pub const R_PPC_EMB_RELST_LO: u32 = 112;
 pub const R_PPC_EMB_RELST_HI: u32 = 113;
 pub const R_PPC_EMB_RELST_HA: u32 = 114;
 pub const R_PPC_EMB_BIT_FLD: u32 = 115;
+/// 16 bit relative offset in SDA
 pub const R_PPC_EMB_RELSDA: u32 = 116;
 pub const R_PPC_EMB_RELOC_120: u32 = 120;
 pub const R_PPC_EMB_RELOC_121: u32 = 121;
+
+// Diab tool values for `Rel*::r_type`.
+/// like EMB_SDA21, but lower 16 bit
 pub const R_PPC_DIAB_SDA21_LO: u32 = 180;
+/// like EMB_SDA21, but high 16 bit
 pub const R_PPC_DIAB_SDA21_HI: u32 = 181;
+/// like EMB_SDA21, adjusted high 16
 pub const R_PPC_DIAB_SDA21_HA: u32 = 182;
+/// like EMB_RELSDA, but lower 16 bit
 pub const R_PPC_DIAB_RELSDA_LO: u32 = 183;
+/// like EMB_RELSDA, but high 16 bit
 pub const R_PPC_DIAB_RELSDA_HI: u32 = 184;
+/// like EMB_RELSDA, adjusted high 16
 pub const R_PPC_DIAB_RELSDA_HA: u32 = 185;
+
 pub const R_PPC_EMB_SPE_DOUBLE: u32 = 201;
 pub const R_PPC_EMB_SPE_WORD: u32 = 202;
 pub const R_PPC_EMB_SPE_HALF: u32 = 203;
@@ -986,6 +1072,23 @@ pub const R_PPC_EMB_SPE_HALF_SDA0REL: u32 = 212;
 pub const R_PPC_EMB_SPE_DOUBLE_SDA: u32 = 213;
 pub const R_PPC_EMB_SPE_WORD_SDA: u32 = 214;
 pub const R_PPC_EMB_SPE_HALF_SDA: u32 = 215;
+
+/// GNU extension to support local ifunc.
+pub const R_PPC_IRELATIVE: u32 = 248;
+
+// GNU relocs used in PIC code sequences.
+/// half16   (sym+add-.)
+pub const R_PPC_REL16: u32 = 249;
+/// half16   (sym+add-.)@l
+pub const R_PPC_REL16_LO: u32 = 250;
+/// half16   (sym+add-.)@h
+pub const R_PPC_REL16_HI: u32 = 251;
+/// half16   (sym+add-.)@ha
+pub const R_PPC_REL16_HA: u32 = 252;
+
+/// This is a phony reloc to handle any old fashioned TOC16 references that may
+/// still be in object files.
+pub const R_PPC_TOC16: u32 = 255;
 
 
 #[inline]
@@ -1535,6 +1638,36 @@ pub fn r_to_str(typ: u32, machine: u16) -> &'static str {
         R_PPC_SECTOFF_HI => "R_PPC_SECTOFF_HI",
         R_PPC_SECTOFF_HA => "R_PPC_SECTOFF_HA",
         R_PPC_ADDR30 => "R_PPC_ADDR30",
+        R_PPC_TLS => "R_PPC_TLS",
+        R_PPC_DTPMOD32 => "R_PPC_DTPMOD32",
+        R_PPC_TPREL16 => "R_PPC_TPREL16",
+        R_PPC_TPREL16_LO => "R_PPC_TPREL16_LO",
+        R_PPC_TPREL16_HI => "R_PPC_TPREL16_HI",
+        R_PPC_TPREL16_HA => "R_PPC_TPREL16_HA",
+        R_PPC_TPREL32 => "R_PPC_TPREL32",
+        R_PPC_DTPREL16 => "R_PPC_DTPREL16",
+        R_PPC_DTPREL16_LO => "R_PPC_DTPREL16_LO",
+        R_PPC_DTPREL16_HI => "R_PPC_DTPREL16_HI",
+        R_PPC_DTPREL16_HA => "R_PPC_DTPREL16_HA",
+        R_PPC_DTPREL32 => "R_PPC_DTPREL32",
+        R_PPC_GOT_TLSGD16 => "R_PPC_GOT_TLSGD16",
+        R_PPC_GOT_TLSGD16_LO => "R_PPC_GOT_TLSGD16_LO",
+        R_PPC_GOT_TLSGD16_HI => "R_PPC_GOT_TLSGD16_HI",
+        R_PPC_GOT_TLSGD16_HA => "R_PPC_GOT_TLSGD16_HA",
+        R_PPC_GOT_TLSLD16 => "R_PPC_GOT_TLSLD16",
+        R_PPC_GOT_TLSLD16_LO => "R_PPC_GOT_TLSLD16_LO",
+        R_PPC_GOT_TLSLD16_HI => "R_PPC_GOT_TLSLD16_HI",
+        R_PPC_GOT_TLSLD16_HA => "R_PPC_GOT_TLSLD16_HA",
+        R_PPC_GOT_TPREL16 => "R_PPC_GOT_TPREL16",
+        R_PPC_GOT_TPREL16_LO => "R_PPC_GOT_TPREL16_LO",
+        R_PPC_GOT_TPREL16_HI => "R_PPC_GOT_TPREL16_HI",
+        R_PPC_GOT_TPREL16_HA => "R_PPC_GOT_TPREL16_HA",
+        R_PPC_GOT_DTPREL16 => "R_PPC_GOT_DTPREL16",
+        R_PPC_GOT_DTPREL16_LO => "R_PPC_GOT_DTPREL16_LO",
+        R_PPC_GOT_DTPREL16_HI => "R_PPC_GOT_DTPREL16_HI",
+        R_PPC_GOT_DTPREL16_HA => "R_PPC_GOT_DTPREL16_HA",
+        R_PPC_TLSGD => "R_PPC_TLSGD",
+        R_PPC_TLSLD => "R_PPC_TLSLD",
         R_PPC_EMB_NADDR32 => "R_PPC_EMB_NADDR32",
         R_PPC_EMB_NADDR16 => "R_PPC_EMB_NADDR16",
         R_PPC_EMB_NADDR16_LO => "R_PPC_EMB_NADDR16_LO",
@@ -1574,6 +1707,12 @@ pub fn r_to_str(typ: u32, machine: u16) -> &'static str {
         R_PPC_EMB_SPE_DOUBLE_SDA => "R_PPC_EMB_SPE_DOUBLE_SDA",
         R_PPC_EMB_SPE_WORD_SDA => "R_PPC_EMB_SPE_WORD_SDA",
         R_PPC_EMB_SPE_HALF_SDA => "R_PPC_EMB_SPE_HALF_SDA",
+        R_PPC_IRELATIVE => "R_PPC_IRELATIVE",
+        R_PPC_REL16 => "R_PPC_REL16",
+        R_PPC_REL16_LO => "R_PPC_REL16_LO",
+        R_PPC_REL16_HI => "R_PPC_REL16_HI",
+        R_PPC_REL16_HA => "R_PPC_REL16_HA",
+        R_PPC_TOC16 => "R_PPC_TOC16",
         _ => "R_UNKNOWN_PPC",
         }},
         _ => "R_UNKNOWN",
